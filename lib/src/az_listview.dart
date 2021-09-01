@@ -27,6 +27,7 @@ class AzListView extends StatefulWidget {
     this.indexBarAlignment = Alignment.centerRight,
     this.indexBarMargin,
     this.indexBarOptions = const IndexBarOptions(),
+    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
   }) : super(key: key);
 
   /// with  ISuspensionBean Data
@@ -88,6 +89,9 @@ class AzListView extends StatefulWidget {
 
   /// IndexBar options.
   final IndexBarOptions indexBarOptions;
+
+  /// Behavior on how to dismiss the keyboard
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
   @override
   _AzListViewState createState() => _AzListViewState();
@@ -189,6 +193,7 @@ class _AzListViewState extends State<AzListView> {
           susPosition: widget.susPosition,
           padding: widget.padding,
           physics: widget.physics,
+          keyboardDismissBehavior: widget.keyboardDismissBehavior,
         ),
         Align(
           alignment: widget.indexBarAlignment,

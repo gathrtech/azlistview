@@ -19,6 +19,7 @@ class SuspensionView extends StatefulWidget {
     this.susPosition,
     this.physics,
     this.padding,
+    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
   }) : super(key: key);
 
   /// Suspension data.
@@ -56,6 +57,9 @@ class SuspensionView extends StatefulWidget {
 
   /// The amount of space by which to inset the children.
   final EdgeInsets? padding;
+
+  /// Behavior on how the scroll view should dismiss the keyboard
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
   @override
   _SuspensionViewState createState() => _SuspensionViewState();
@@ -112,7 +116,7 @@ class _SuspensionViewState extends State<SuspensionView> {
             ISuspensionBean bean = widget.data[next];
             if (bean.isShowSuspension) {
               double height =
-                  context.findRenderObject()?.paintBounds?.height ?? 0;
+                  context.findRenderObject()?.paintBounds.height ?? 0;
               double topTemp = itemPosition.itemTrailingEdge * height;
               top = math.min(widget.susItemHeight, topTemp) -
                   widget.susItemHeight;
@@ -157,6 +161,7 @@ class _SuspensionViewState extends State<SuspensionView> {
                 itemPositionsListener: itemPositionsListener,
                 physics: widget.physics,
                 padding: widget.padding,
+                keyboardDismissBehavior: widget.keyboardDismissBehavior,
               ),
         _buildSusWidget(context),
       ],
