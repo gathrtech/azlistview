@@ -28,6 +28,7 @@ class AzListView extends StatefulWidget {
     this.indexBarMargin,
     this.indexBarOptions = const IndexBarOptions(),
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+    this.firstSkipIndex,
   }) : super(key: key);
 
   /// with  ISuspensionBean Data
@@ -93,6 +94,10 @@ class AzListView extends StatefulWidget {
   /// Behavior on how to dismiss the keyboard
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
+  /// Used as the index of when to change indices on jump to avoid
+  /// overlapping the item with the suspension view
+  final String? firstSkipIndex;
+
   @override
   _AzListViewState createState() => _AzListViewState();
 }
@@ -136,6 +141,19 @@ class _AzListViewState extends State<AzListView> {
     for (int i = 0; i < widget.itemCount; i++) {
       ISuspensionBean bean = widget.data[i];
       if (tag == bean.getSuspensionTag()) {
+        // Do some extra jump computation if there is a skip index
+        if (widget.firstSkipIndex != null) {
+          int friendIndex = widget.indexBarData.indexOf(widget.firstSkipIndex!);
+          int tagIndex = widget.indexBarData.indexOf(tag);
+
+          if (friendIndex != -1 && tagIndex != -1) {
+            // Only run this code if we are AFTER the first non-friend index
+            if (tagIndex > (friendIndex + 1)) {
+              return i - 1;
+            }
+          }
+        }
+
         return i;
       }
     }

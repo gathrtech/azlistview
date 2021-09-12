@@ -274,7 +274,7 @@ class _IndexBarState extends State<IndexBar> {
   @override
   void initState() {
     super.initState();
-    widget.indexBarDragNotifier?.dragDetails?.addListener(_valueChanged);
+    widget.indexBarDragNotifier?.dragDetails.addListener(_valueChanged);
     widget.controller?._attach(this);
   }
 
@@ -313,7 +313,7 @@ class _IndexBarState extends State<IndexBar> {
   void dispose() {
     widget.controller?._detach();
     _removeOverlay();
-    widget.indexBarDragNotifier?.dragDetails?.removeListener(_valueChanged);
+    widget.indexBarDragNotifier?.dragDetails.removeListener(_valueChanged);
     super.dispose();
   }
 
@@ -511,7 +511,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
 
   /// trigger drag event.
   _triggerDragEvent(int action) {
-    widget.indexBarDragNotifier?.dragDetails?.value = IndexBarDragDetails(
+    widget.indexBarDragNotifier?.dragDetails.value = IndexBarDragDetails(
       action: action,
       index: lastIndex,
       tag: widget.data[lastIndex],
